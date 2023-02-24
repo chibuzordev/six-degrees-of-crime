@@ -22,3 +22,5 @@ The *person_id_for_name* function
 - retrieves the id for any person
 The *shortest_path* function, 
 - finds and returns the shortest path link betweent the *source* and the *target* 
+
+The util.py was adopted from [the CS50 Search project](https://learning.edx.org/course/course-v1:HarvardX+CS50AI+1T2020/block-v1:HarvardX+CS50AI+1T2020+type@sequential+block@918082613c254e2da55e31d1894bc4be/block-v1:HarvardX+CS50AI+1T2020+type@vertical+block@d8a51672180d461d9e0a9ca02870d0d9)
