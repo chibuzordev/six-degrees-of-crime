@@ -12,39 +12,42 @@ people = {}
 crime_scenes = {}
 
 
-def load_data(directory):
+def load_data(directory,persons,places,link):
 
-    # Load people
-    with open(f"{directory}/people.csv", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            people[row["id"]] = {
-                "name": row["name"],
-                "birth": row["birth"],
-                "detained": row["detained"],
-                "crime_scenes": set()
-            }
-            if row["name"].lower() not in names:
-                names[row["name"].lower()] = {row["id"]}
-            else:
-                names[row["name"].lower()].add(row["id"])
-    # Load crime_scenes
-    with open(f"{directory}/crime_scenes.csv", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            crime_scenes[row["id"]] = {
-                "name": row["name"],
-                "appearances": set()
-            }
-    # Load appearances
-    with open(f"{directory}/appearances.csv", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            try:
-                people[row["person_id"]]["crime_scenes"].add(row["city_id"])
-                crime_scenes[row["city_id"]]["appearances"].add(row["person_id"])
-            except KeyError:
-                pass
+
+    try:
+        # Load people
+        with open(f"{directory}/{persons}", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                people[row["id"]] = {
+                    "name": row["name"],
+                    "birth": row["birth"],
+                    "detained": row["detained"],
+                    "crime_scenes": set()
+                }
+                if row["name"].lower() not in names:
+                    names[row["name"].lower()] = {row["id"]}
+                else:
+                    names[row["name"].lower()].add(row["id"])        
+        with open(f"{directory}/{places}", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                crime_scenes[row["id"]] = {
+                    "name": row["name"],
+                    "appearances": set()
+                }
+        with open(f"{directory}/{link}", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                try:
+                    people[row["person_id"]]["crime_scenes"].add(row["city_id"])
+                    crime_scenes[row["city_id"]]["appearances"].add(row["person_id"])
+                except KeyError:
+                    pass
+    except FileNotFoundError:
+            sys.exit("Error loading file(s). Please double check the files, their names and addresses.")
+    
 
 def main():
     if len(sys.argv) > 2:
@@ -53,7 +56,7 @@ def main():
 
     # Load data from files into memory
     print("Loading data...")
-    load_data(directory)
+    load_data("data","people.csv", "crime_scenes.csv", "appearances.csv")
     print("Data loaded.")
 
     source = person_id_for_name(input("Name: "))
@@ -66,13 +69,14 @@ def main():
     path = shortest_path(source, target)
 
     if path is None:
-        print("Not connected.")
+        print("The suspects are not connected.")
     else:
         degrees = len(path)
         s = ""
         if degrees != 1:
             s = "s"
-        print(f"{degrees} degree{s} of separation.")
+            
+        print(f"The suspects are connected \nThere are {degrees} degree{s} of separation between.")
         path = [(None, source)] + path
         for i in range(degrees):
             detained1 = people[path[i][1]]["detained"]
@@ -80,9 +84,11 @@ def main():
             person1 = people[path[i][1]]["name"]
             person2 = people[path[i + 1][1]]["name"]
             city = crime_scenes[path[i + 1][0]]["name"]
+            
+            # status = "*" flags a meeting as suspicious
             status = "."
-            if (detained1 == detained2) and (degrees == 1):
-                status = "  *."
+            if detained1 == detained2 :
+                status = "  *"
             print(f"{i + 1}: {person1} and {person2} were in {city}{status}")
             
 
@@ -120,7 +126,6 @@ def shortest_path(source, target):
                     path.reverse()
                     return path
                 frontier.add(child)
-
 
 def person_id_for_name(name):
     """

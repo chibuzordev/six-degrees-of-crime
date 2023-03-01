@@ -9,6 +9,7 @@ id,name,birth,detained
 8,"Marlon Brando",1974,0
 9,"Richard Burton",,1
 10,"James Cagney",1989,0
+102,"Bala Bulu Corn",1959,0
 11,"Gary Cooper",1971,1
 12,"Bette Davis",1988,0
 13,"Doris Day",1982,
@@ -21,7 +22,8 @@ id,name,birth,detained
 20,"Julián Apezteguia",1974,1
 21,"Kelechi Araki",1980,1
 22,"Viviane Araújo",1975,1
-23,"Ramiro Archain",1978,0
+23,"Ramiro Archain",1978,1
+81,"Shurecan Rigg",1979,1
 24,"Vassilis Arhitektonidis",1979,1
 25,"Ully Arndt",1966,
 26,"Véronique Assens",2002,1
@@ -29,3 +31,4 @@ id,name,birth,detained
 28,"Barry Baeres",1999,1
 29,"Baharak Alari",2003,1
 30,"Kamal Bakir",2000,0
+31,"Kamal Bakir",2000,1
