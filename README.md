@@ -55,7 +55,7 @@ Data loaded.
 Name: Bala Bulu Corn
 Name: Shurecan Rigg
 The suspects are connected 
-There are 3 degrees of separation between.
+There are 3 degrees of separation between them.
 1: Bala Bulu Corn and Brigitte Bardot were in Fagba.
 2: Brigitte Bardot and Ramiro Archain were in Imota  *
 3: Ramiro Archain and Shurecan Rigg were in Isheri  *
