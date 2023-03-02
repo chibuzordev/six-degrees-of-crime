@@ -76,7 +76,7 @@ def main():
         if degrees != 1:
             s = "s"
             
-        print(f"The suspects are connected \nThere are {degrees} degree{s} of separation between.")
+        print(f"The suspects are connected \nThere are {degrees} degree{s} of separation between them.")
         path = [(None, source)] + path
         for i in range(degrees):
             detained1 = people[path[i][1]]["detained"]
